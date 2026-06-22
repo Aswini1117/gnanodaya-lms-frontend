@@ -1,0 +1,132 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Students — LMS</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com"/>
+  <link href="https://fonts.googleapis.com/css2?family=Sora:wght@400;600;700&family=DM+Sans:wght@400;500;600&display=swap" rel="stylesheet"/>
+  <link rel="stylesheet" href="../css/variables.css"/>
+  <link rel="stylesheet" href="../css/globals.css"/>
+  <link rel="stylesheet" href="../css/shared.css"/>
+</head>
+<body>
+<div class="app-layout">
+
+  <header class="app-navbar">
+    <div class="navbar-left">
+      <div class="hamburger" onclick="toggleSidebar()"><span></span><span></span><span></span></div>
+      <span class="navbar-title">Students</span>
+    </div>
+    <div class="navbar-right">
+      <div class="navbar-icon-btn">🔔<div class="notif-dot"></div></div>
+      <div class="navbar-user">
+        <div class="navbar-avatar" id="nav-avatar">A</div>
+        <span id="nav-name">Admin</span>
+      </div>
+    </div>
+  </header>
+
+  <aside class="app-sidebar" id="sidebar"></aside>
+  <div class="sidebar-overlay" id="sidebar-overlay" onclick="toggleSidebar()"></div>
+
+  <main class="app-main">
+    <div class="main-content">
+
+      <div class="page-header">
+        <div>
+          <div class="page-title">Students</div>
+          <div class="page-subtitle">Manage all enrolled students</div>
+        </div>
+        <div class="page-actions">
+          <button class="btn" onclick="exportStudents()">📥 Export</button>
+          <button class="btn btn-primary" onclick="openAddModal()">+ Add Student</button>
+        </div>
+      </div>
+
+      <!-- Search & Filter -->
+      <div class="panel" style="margin-bottom:20px">
+        <div class="panel-body" style="display:flex;gap:12px;flex-wrap:wrap">
+          <input type="text" class="form-input" id="search-input" placeholder="🔍 Search by name or email..." style="max-width:300px" oninput="filterStudents()"/>
+          <select class="form-select" id="status-filter" style="max-width:180px" onchange="filterStudents()">
+            <option value="">All Status</option>
+            <option value="ACTIVE">Active</option>
+            <option value="INACTIVE">Inactive</option>
+            <option value="PENDING">Pending</option>
+          </select>
+        </div>
+      </div>
+
+      <!-- Table -->
+      <div class="panel">
+        <div class="panel-head">
+          <span class="panel-title">All Students</span>
+          <span class="badge badge-primary" id="student-count">0</span>
+        </div>
+        <div class="table-wrap">
+          <table class="data-table">
+            <thead>
+              <tr>
+                <th>Student</th>
+                <th>Email</th>
+                <th>Phone</th>
+                <th>Enrolled On</th>
+                <th>Status</th>
+                <th>Actions</th>
+              </tr>
+            </thead>
+            <tbody id="students-table">
+              <tr><td colspan="6" style="text-align:center;padding:24px;color:var(--text-muted)">Loading...</td></tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+
+    </div>
+  </main>
+</div>
+
+<!-- Add/Edit Modal -->
+<div class="modal-overlay" id="student-modal">
+  <div class="modal">
+    <button class="modal-close" onclick="closeModal()">✕</button>
+    <div class="modal-title" id="modal-title">Add Student</div>
+    <input type="hidden" id="student-id"/>
+    <div class="form-row">
+      <div class="form-group">
+        <label class="form-label">Full Name <span style="color:var(--error)">*</span></label>
+        <input type="text" class="form-input" id="student-name" placeholder="Enter full name"/>
+      </div>
+      <div class="form-group">
+        <label class="form-label">Email <span style="color:var(--error)">*</span></label>
+        <input type="email" class="form-input" id="student-email" placeholder="Enter email"/>
+      </div>
+      <div class="form-group">
+        <label class="form-label">Phone</label>
+        <input type="text" class="form-input" id="student-phone" placeholder="Enter phone"/>
+      </div>
+      <div class="form-group">
+        <label class="form-label">Status</label>
+        <select class="form-select" id="student-status">
+          <option value="ACTIVE">Active</option>
+          <option value="INACTIVE">Inactive</option>
+          <option value="PENDING">Pending</option>
+        </select>
+      </div>
+    </div>
+    <div class="modal-actions">
+      <button class="btn" onclick="closeModal()">Cancel</button>
+      <button class="btn btn-primary" onclick="saveStudent()">Save Student</button>
+    </div>
+  </div>
+</div>
+
+<script src="../js/api.js"></script>
+<script src="../js/auth.js"></script>
+<script src="../js/role-guard.js"></script>
+<script src="../js/utils.js"></script>
+<script src="../js/toast.js"></script>
+<script src="../js/sidebar.js"></script>
+<script src="../js/admin/students.js"></script>
+</body>
+</html>

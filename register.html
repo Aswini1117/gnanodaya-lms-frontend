@@ -1,0 +1,233 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Register — Gnanodaya VLSI LMS</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com"/>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet"/>
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@tabler/icons-webfont@2.44.0/tabler-icons.min.css"/>
+  <link rel="stylesheet" href="css/variables.css"/>
+  <link rel="stylesheet" href="css/globals.css"/>
+  <link rel="stylesheet" href="css/register.css"/>
+</head>
+<body>
+
+<div class="reg-page">
+
+  <!-- LEFT PANEL -->
+  <div class="reg-left">
+
+    <div class="reg-logo">
+      <div class="reg-logo-box">
+        <i class="ti ti-school" aria-hidden="true"></i>
+      </div>
+      <span class="reg-logo-name">Gnanodaya VLSI</span>
+      <span class="reg-logo-pill">Student Portal</span>
+    </div>
+
+    <div class="reg-hero">
+      <h1>Start your VLSI<br/>learning journey.</h1>
+      <p>Register below. Your institute admin will review and activate your account before you can sign in.</p>
+
+      <div class="step-item">
+        <div class="step-num">1</div>
+        <div class="step-info">
+          <h4>Fill your details</h4>
+          <p>Name, phone, email and password</p>
+        </div>
+      </div>
+
+      <div class="step-item">
+        <div class="step-num">2</div>
+        <div class="step-info">
+          <h4>Admin reviews</h4>
+          <p>Your account is activated by the admin</p>
+        </div>
+      </div>
+
+      <div class="step-item">
+        <div class="step-num">3</div>
+        <div class="step-info">
+          <h4>Login and learn</h4>
+          <p>Access courses, batches and assignments</p>
+        </div>
+      </div>
+
+      <div class="bottom-badges">
+        <div class="bottom-badge">
+          <div class="val">Free</div>
+          <div class="lbl">To register</div>
+        </div>
+        <div class="bottom-badge">
+          <div class="val">SSL</div>
+          <div class="lbl">Secured</div>
+        </div>
+        <div class="bottom-badge">
+          <div class="val">24/7</div>
+          <div class="lbl">Support</div>
+        </div>
+      </div>
+    </div>
+
+  </div>
+
+  <!-- RIGHT PANEL -->
+  <div class="reg-right">
+    <div class="reg-form-wrap">
+
+      <div class="reg-header">
+        <div class="reg-header-icon">
+          <i class="ti ti-user-plus" aria-hidden="true"></i>
+        </div>
+        <h2>Create student account</h2>
+        <p>Join Gnanodaya VLSI Institute — free registration</p>
+      </div>
+
+      <div id="reg-alert"   class="alert-error"></div>
+      <div id="reg-success" class="alert-success"></div>
+
+      <!-- Full Name -->
+      <div class="field-group">
+        <label class="field-label" for="full-name">Full Name</label>
+        <div class="field-wrap" id="wrap-name">
+          <span class="field-icon">
+            <i class="ti ti-user" aria-hidden="true"></i>
+          </span>
+          <input
+            type="text"
+            class="field-input"
+            id="full-name"
+            placeholder="Enter your full name"
+            oninput="clearFieldErr('name-error','wrap-name')"
+          />
+        </div>
+        <span id="name-error" class="field-err"></span>
+      </div>
+
+      <!-- Phone + Email -->
+      <div class="row-2">
+        <div class="field-group">
+          <label class="field-label" for="phone-input">Phone Number</label>
+          <div class="field-wrap" id="wrap-phone">
+            <span class="field-icon">
+              <i class="ti ti-phone" aria-hidden="true"></i>
+            </span>
+            <input
+              type="tel"
+              class="field-input"
+              id="phone-input"
+              placeholder="10-digit number"
+              maxlength="10"
+              oninput="this.value=this.value.replace(/\D/g,''); clearFieldErr('phone-error','wrap-phone')"
+            />
+          </div>
+          <span id="phone-error" class="field-err"></span>
+        </div>
+
+        <div class="field-group">
+          <label class="field-label" for="email-input">Email Address</label>
+          <div class="field-wrap" id="wrap-email">
+            <span class="field-icon">
+              <i class="ti ti-mail" aria-hidden="true"></i>
+            </span>
+            <input
+              type="email"
+              class="field-input"
+              id="email-input"
+              placeholder="your@email.com"
+              oninput="clearFieldErr('email-error','wrap-email')"
+            />
+          </div>
+          <span id="email-error" class="field-err"></span>
+        </div>
+      </div>
+
+      <!-- Password + Confirm -->
+      <div class="row-2">
+        <div class="field-group">
+          <label class="field-label" for="password-input">Password</label>
+          <div class="field-wrap" id="wrap-password">
+            <span class="field-icon">
+              <i class="ti ti-lock" aria-hidden="true"></i>
+            </span>
+            <input
+              type="password"
+              class="field-input"
+              id="password-input"
+              placeholder="Min. 6 characters"
+              oninput="clearFieldErr('password-error','wrap-password')"
+            />
+            <button
+              class="field-suffix"
+              type="button"
+              onclick="togglePwd('password-input','eye-pwd')"
+              aria-label="Toggle password"
+            >
+              <i class="ti ti-eye" id="eye-pwd" aria-hidden="true"></i>
+            </button>
+          </div>
+          <span id="password-error" class="field-err"></span>
+        </div>
+
+        <div class="field-group">
+          <label class="field-label" for="confirm-input">Confirm Password</label>
+          <div class="field-wrap" id="wrap-confirm">
+            <span class="field-icon">
+              <i class="ti ti-lock-check" aria-hidden="true"></i>
+            </span>
+            <input
+              type="password"
+              class="field-input"
+              id="confirm-input"
+              placeholder="Re-enter password"
+              oninput="clearFieldErr('confirm-error','wrap-confirm')"
+            />
+            <button
+              class="field-suffix"
+              type="button"
+              onclick="togglePwd('confirm-input','eye-confirm')"
+              aria-label="Toggle password"
+            >
+              <i class="ti ti-eye" id="eye-confirm" aria-hidden="true"></i>
+            </button>
+          </div>
+          <span id="confirm-error" class="field-err"></span>
+        </div>
+      </div>
+
+      <!-- Terms -->
+      <div class="check-row">
+        <input type="checkbox" id="terms-check"/>
+        <label for="terms-check">
+          I agree to the <a href="#">Terms &amp; Conditions</a>
+        </label>
+      </div>
+      <span id="terms-error" class="terms-error"></span>
+
+      <!-- Submit -->
+      <button class="btn-register" id="register-btn" onclick="submitRegister()">
+        <span id="register-text">Create account</span>
+        <span id="register-spinner" class="spinner"></span>
+        <i class="ti ti-arrow-right" id="register-arrow" aria-hidden="true"></i>
+      </button>
+
+      <div class="form-divider">or</div>
+
+      <div class="signin-link">
+        Already have an account? <a href="login.html">Sign in</a>
+      </div>
+      <div class="signin-link">
+        Admin or Instructor? <a href="login.html">Sign in here</a>
+      </div>
+
+    </div>
+  </div>
+
+</div>
+<div id="toast-container" class="toast-container">
+</div>
+
+<script src="js/register.js"></script>
+</body>
+</html>

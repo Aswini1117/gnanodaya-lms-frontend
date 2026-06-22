@@ -1,0 +1,141 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>System Settings — LMS</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com"/>
+  <link href="https://fonts.googleapis.com/css2?family=Sora:wght@400;600;700&family=DM+Sans:wght@400;500;600&display=swap" rel="stylesheet"/>
+  <link rel="stylesheet" href="../css/variables.css"/>
+  <link rel="stylesheet" href="../css/globals.css"/>
+  <link rel="stylesheet" href="../css/shared.css"/>
+</head>
+<body>
+<div class="app-layout">
+  <header class="app-navbar">
+    <div class="navbar-left">
+      <div class="hamburger" onclick="toggleSidebar()"><span></span><span></span><span></span></div>
+      <span class="navbar-title">System Settings</span>
+    </div>
+    <div class="navbar-right">
+      <div class="navbar-icon-btn">🔔<div class="notif-dot"></div></div>
+      <div class="navbar-user">
+        <div class="navbar-avatar" id="nav-avatar" style="background:var(--super-admin)">S</div>
+        <span id="nav-name">Super Admin</span>
+      </div>
+    </div>
+  </header>
+  <aside class="app-sidebar" id="sidebar"></aside>
+  <div class="sidebar-overlay" id="sidebar-overlay" onclick="toggleSidebar()"></div>
+  <main class="app-main">
+    <div class="main-content">
+      <div class="page-header">
+        <div>
+          <div class="page-title">System Settings</div>
+          <div class="page-subtitle">Global platform configuration</div>
+        </div>
+        <div class="page-actions">
+          <button class="btn btn-primary" onclick="saveSettings()">💾 Save All Settings</button>
+        </div>
+      </div>
+
+      <div class="content-grid">
+
+        <!-- General -->
+        <div class="panel">
+          <div class="panel-head"><span class="panel-title">General</span></div>
+          <div class="panel-body">
+            <div class="form-group">
+              <label class="form-label">Platform Name</label>
+              <input type="text" class="form-input" id="platform-name" placeholder="LMS Campus"/>
+            </div>
+            <div class="form-group">
+              <label class="form-label">Support Email</label>
+              <input type="email" class="form-input" id="support-email" placeholder="support@lmscampus.com"/>
+            </div>
+            <div class="form-group">
+              <label class="form-label">Default Timezone</label>
+              <select class="form-select" id="timezone">
+                <option value="Asia/Kolkata">Asia/Kolkata (IST)</option>
+                <option value="UTC">UTC</option>
+                <option value="America/New_York">America/New_York</option>
+              </select>
+            </div>
+          </div>
+        </div>
+
+        <!-- SMTP -->
+        <div class="panel">
+          <div class="panel-head"><span class="panel-title">Email (SMTP)</span></div>
+          <div class="panel-body">
+            <div class="form-group">
+              <label class="form-label">SMTP Host</label>
+              <input type="text" class="form-input" id="smtp-host" placeholder="smtp.gmail.com"/>
+            </div>
+            <div class="form-group">
+              <label class="form-label">SMTP Port</label>
+              <input type="number" class="form-input" id="smtp-port" placeholder="587"/>
+            </div>
+            <div class="form-group">
+              <label class="form-label">SMTP Username</label>
+              <input type="text" class="form-input" id="smtp-user" placeholder="your@email.com"/>
+            </div>
+            <div class="form-group">
+              <label class="form-label">SMTP Password</label>
+              <input type="password" class="form-input" id="smtp-pass" placeholder="••••••••"/>
+            </div>
+          </div>
+        </div>
+
+        <!-- Storage -->
+        <div class="panel">
+          <div class="panel-head"><span class="panel-title">Storage Limits</span></div>
+          <div class="panel-body">
+            <div class="form-group">
+              <label class="form-label">Max Video Storage per Institute (GB)</label>
+              <input type="number" class="form-input" id="max-storage" placeholder="100"/>
+            </div>
+            <div class="form-group">
+              <label class="form-label">Max File Upload Size (MB)</label>
+              <input type="number" class="form-input" id="max-upload" placeholder="50"/>
+            </div>
+          </div>
+        </div>
+
+        <!-- OTP -->
+        <div class="panel">
+          <div class="panel-head"><span class="panel-title">OTP Settings</span></div>
+          <div class="panel-body">
+            <div class="form-group">
+              <label class="form-label">OTP Expiry (minutes)</label>
+              <input type="number" class="form-input" id="otp-expiry" placeholder="10"/>
+            </div>
+            <div class="form-group">
+              <label class="form-label">SMS Provider</label>
+              <select class="form-select" id="sms-provider">
+                <option value="TWILIO">Twilio</option>
+                <option value="MSG91">MSG91</option>
+                <option value="FAST2SMS">Fast2SMS</option>
+              </select>
+            </div>
+            <div class="form-group">
+              <label class="form-label">SMS API Key</label>
+              <input type="text" class="form-input" id="sms-key" placeholder="Your API key"/>
+            </div>
+          </div>
+        </div>
+
+      </div>
+    </div>
+  </main>
+</div>
+
+<script src="../js/api.js"></script>
+<script src="../js/auth.js"></script>
+<script src="../js/role-guard.js"></script>
+<script src="../js/utils.js"></script>
+<script src="../js/toast.js"></script>
+<script src="../js/sidebar.js"></script>
+<script src="../js/super-admin/system-settings.js"></script>
+</body>
+</html>

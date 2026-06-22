@@ -1,0 +1,148 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>My Batches — LMS</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com"/>
+  <link href="https://fonts.googleapis.com/css2?family=Sora:wght@400;600;700&family=DM+Sans:wght@400;500;600&display=swap" rel="stylesheet"/>
+  <link rel="stylesheet" href="../css/variables.css"/>
+  <link rel="stylesheet" href="../css/globals.css"/>
+  <link rel="stylesheet" href="../css/shared.css"/>
+</head>
+<body>
+<div class="app-layout">
+
+  <header class="app-navbar">
+    <div class="navbar-left">
+      <div class="hamburger" onclick="toggleSidebar()"><span></span><span></span><span></span></div>
+      <span class="navbar-title">My Batches</span>
+    </div>
+    <div class="navbar-right">
+      <div class="navbar-icon-btn">🔔<div class="notif-dot"></div></div>
+      <div class="navbar-user">
+        <div class="navbar-avatar" id="nav-avatar" style="background:var(--instructor)">I</div>
+        <span id="nav-name">Instructor</span>
+      </div>
+    </div>
+  </header>
+
+  <aside class="app-sidebar" id="sidebar"></aside>
+  <div class="sidebar-overlay" id="sidebar-overlay" onclick="toggleSidebar()"></div>
+
+  <main class="app-main">
+    <div class="main-content">
+
+      <div class="page-header">
+        <div>
+          <div class="page-title">My Batches</div>
+          <div class="page-subtitle">Batches assigned to you by the admin</div>
+        </div>
+      </div>
+
+      <!-- Stats -->
+      <div class="stats-grid">
+        <div class="stat-card green">
+          <div class="stat-icon">🗂</div>
+          <div class="stat-label">Total Batches</div>
+          <div class="stat-value" id="stat-total">—</div>
+          <div class="stat-trend">Assigned to you</div>
+        </div>
+        <div class="stat-card">
+          <div class="stat-icon">⏳</div>
+          <div class="stat-label">Ongoing</div>
+          <div class="stat-value" id="stat-ongoing">—</div>
+          <div class="stat-trend">Currently active</div>
+        </div>
+        <div class="stat-card yellow">
+          <div class="stat-icon">📅</div>
+          <div class="stat-label">Upcoming</div>
+          <div class="stat-value" id="stat-upcoming">—</div>
+          <div class="stat-trend">Starting soon</div>
+        </div>
+        <div class="stat-card purple">
+          <div class="stat-icon">✅</div>
+          <div class="stat-label">Completed</div>
+          <div class="stat-value" id="stat-completed">—</div>
+          <div class="stat-trend">Finished batches</div>
+        </div>
+      </div>
+
+      <!-- Search -->
+      <div class="panel" style="margin-bottom:20px">
+        <div class="panel-body" style="display:flex;gap:12px;flex-wrap:wrap">
+          <input type="text" class="form-input" id="search-input"
+            placeholder="🔍 Search batches..."
+            style="max-width:300px" oninput="filterBatches()"/>
+          <select class="form-select" id="status-filter" style="max-width:180px" onchange="filterBatches()">
+            <option value="">All Status</option>
+            <option value="UPCOMING">Upcoming</option>
+            <option value="ONGOING">Ongoing</option>
+            <option value="COMPLETED">Completed</option>
+            <option value="CANCELLED">Cancelled</option>
+          </select>
+        </div>
+      </div>
+
+      <!-- Batches Table -->
+      <div class="panel">
+        <div class="panel-head">
+          <span class="panel-title">All My Batches</span>
+          <span class="badge badge-primary" id="batch-count">0</span>
+        </div>
+        <div class="table-wrap">
+          <table class="data-table">
+            <thead>
+              <tr>
+                <th>Batch Name</th>
+                <th>Start Date</th>
+                <th>End Date</th>
+                <th>Days / Time</th>
+                <th>Max Students</th>
+                <th>Status</th>
+                <th>Actions</th>
+              </tr>
+            </thead>
+            <tbody id="batches-table">
+              <tr><td colspan="7" style="text-align:center;padding:24px;color:var(--text-muted)">Loading...</td></tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+
+    </div>
+  </main>
+</div>
+
+<!-- Students Modal -->
+<div class="modal-overlay" id="students-modal">
+  <div class="modal" style="max-width:640px">
+    <button class="modal-close" onclick="closeStudentsModal()">✕</button>
+    <div class="modal-title" id="students-modal-title">Students in Batch</div>
+    <div class="table-wrap" style="margin-top:16px">
+      <table class="data-table">
+        <thead>
+          <tr>
+            <th>Student</th>
+            <th>Phone</th>
+            <th>Email</th>
+            <th>Status</th>
+          </tr>
+        </thead>
+        <tbody id="students-table">
+          <tr><td colspan="4" style="text-align:center;padding:24px;color:var(--text-muted)">Loading...</td></tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+</div>
+
+<script src="../js/api.js"></script>
+<script src="../js/auth.js"></script>
+<script src="../js/role-guard.js"></script>
+<script src="../js/utils.js"></script>
+<script src="../js/toast.js"></script>
+<script src="../js/sidebar.js"></script>
+<script src="../js/instructor/batches.js"></script>
+</body>
+</html>

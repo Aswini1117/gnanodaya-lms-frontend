@@ -1,0 +1,168 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Announcements — Super Admin</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com"/>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet"/>
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@tabler/icons-webfont@2.44.0/tabler-icons.min.css"/>
+  <link rel="stylesheet" href="../css/variables.css"/>
+  <link rel="stylesheet" href="../css/globals.css"/>
+  <link rel="stylesheet" href="../css/shared.css"/>
+  <link rel="stylesheet" href="../css/announcements.css"/>
+</head>
+<body>
+
+<div class="dashboard-layout">
+
+  <!-- SIDEBAR -->
+  <aside class="sidebar" id="sidebar">
+    <div class="sidebar-logo">
+      <div class="sidebar-logo-icon">
+        <i class="ti ti-school" aria-hidden="true"></i>
+      </div>
+      <span class="sidebar-logo-text">Gnanodaya VLSI</span>
+    </div>
+
+    <nav class="sidebar-nav">
+      <a href="dashboard.html"     class="nav-item"><i class="ti ti-layout-dashboard" aria-hidden="true"></i> Dashboard</a>
+      <a href="institutes.html"    class="nav-item"><i class="ti ti-building" aria-hidden="true"></i> Institutes</a>
+      <a href="students.html"      class="nav-item"><i class="ti ti-users" aria-hidden="true"></i> Students</a>
+      <a href="instructors.html"   class="nav-item"><i class="ti ti-chalkboard" aria-hidden="true"></i> Instructors</a>
+      <a href="courses.html"       class="nav-item"><i class="ti ti-book" aria-hidden="true"></i> Courses</a>
+      <a href="batches.html"       class="nav-item"><i class="ti ti-stack" aria-hidden="true"></i> Batches</a>
+      <a href="fees.html"          class="nav-item"><i class="ti ti-credit-card" aria-hidden="true"></i> Fees</a>
+      <a href="attendance.html"    class="nav-item"><i class="ti ti-calendar-check" aria-hidden="true"></i> Attendance</a>
+      <a href="announcements.html" class="nav-item active"><i class="ti ti-speakerphone" aria-hidden="true"></i> Announcements</a>
+      <a href="enquiries.html"     class="nav-item"><i class="ti ti-mail" aria-hidden="true"></i> Enquiries</a>
+      <a href="certificates.html"  class="nav-item"><i class="ti ti-certificate" aria-hidden="true"></i> Certificates</a>
+      <a href="support.html"       class="nav-item"><i class="ti ti-headset" aria-hidden="true"></i> Support</a>
+    </nav>
+
+    <div class="sidebar-footer">
+      <button class="logout-btn" onclick="logout()">
+        <i class="ti ti-logout" aria-hidden="true"></i> Logout
+      </button>
+    </div>
+  </aside>
+
+  <!-- MAIN CONTENT -->
+  <main class="main-content">
+
+    <div class="top-bar">
+      <div>
+        <h1 class="page-title">Announcements</h1>
+        <p class="page-subtitle">Create and manage platform-wide announcements</p>
+      </div>
+      <div class="top-bar-right">
+        <span class="user-name" id="user-name">Super Admin</span>
+      </div>
+    </div>
+
+    <div class="announce-layout">
+
+      <!-- CREATE FORM -->
+      <div class="announce-form-card">
+        <div class="card-head">
+          <i class="ti ti-plus" aria-hidden="true"></i>
+          <h3>New Announcement</h3>
+        </div>
+
+        <div id="form-alert-error"   class="form-alert error"></div>
+        <div id="form-alert-success" class="form-alert success"></div>
+
+        <div class="field-group">
+          <label class="field-label" for="ann-title">Title</label>
+          <div class="field-wrap" id="wrap-title">
+            <span class="field-icon"><i class="ti ti-text-size" aria-hidden="true"></i></span>
+            <input type="text" class="field-input" id="ann-title"
+              placeholder="Announcement title"
+              oninput="clearWrapErr('wrap-title')"/>
+          </div>
+          <span id="title-error" class="field-err"></span>
+        </div>
+
+        <div class="field-group">
+          <label class="field-label" for="ann-target">Send To</label>
+          <div class="field-wrap" id="wrap-target">
+            <span class="field-icon"><i class="ti ti-users" aria-hidden="true"></i></span>
+            <select class="field-input field-select" id="ann-target">
+              <option value="">Select audience</option>
+              <option value="ALL">Everyone</option>
+              <option value="STUDENTS">Students only</option>
+              <option value="INSTRUCTORS">Instructors only</option>
+              <option value="BATCH">Specific batch</option>
+            </select>
+          </div>
+          <span id="target-error" class="field-err"></span>
+        </div>
+
+        <div class="field-group" id="batch-field" style="display:none">
+          <label class="field-label" for="ann-batch">Select Batch</label>
+          <div class="field-wrap">
+            <span class="field-icon"><i class="ti ti-stack" aria-hidden="true"></i></span>
+            <select class="field-input field-select" id="ann-batch">
+              <option value="">Loading batches...</option>
+            </select>
+          </div>
+        </div>
+
+        <div class="field-group">
+          <label class="field-label" for="ann-content">Message</label>
+          <div class="textarea-wrap" id="wrap-content">
+            <textarea class="field-textarea" id="ann-content"
+              placeholder="Write your announcement here..."
+              rows="5"
+              oninput="clearWrapErr('wrap-content')"></textarea>
+          </div>
+          <span id="content-error" class="field-err"></span>
+        </div>
+
+        <button class="btn-primary" id="post-btn" onclick="postAnnouncement()">
+          <span id="post-text">Post Announcement</span>
+          <span id="post-spinner" class="spinner"></span>
+          <i class="ti ti-send" id="post-arrow" aria-hidden="true"></i>
+        </button>
+      </div>
+
+      <!-- ANNOUNCEMENTS LIST -->
+      <div class="announce-list-card">
+        <div class="card-head">
+          <i class="ti ti-speakerphone" aria-hidden="true"></i>
+          <h3>All Announcements</h3>
+          <span class="count-badge" id="ann-count">0</span>
+        </div>
+
+        <div class="filter-row">
+          <input type="text" class="search-input" id="search-input"
+            placeholder="Search announcements..."
+            oninput="filterAnnouncements()"/>
+          <select class="filter-select" id="filter-target" onchange="filterAnnouncements()">
+            <option value="">All audiences</option>
+            <option value="ALL">Everyone</option>
+            <option value="STUDENTS">Students</option>
+            <option value="INSTRUCTORS">Instructors</option>
+            <option value="BATCH">Batch</option>
+          </select>
+        </div>
+
+        <div id="announcements-list">
+          <div class="empty-state">
+            <i class="ti ti-speakerphone" aria-hidden="true"></i>
+            <p>Loading announcements...</p>
+          </div>
+        </div>
+      </div>
+
+    </div>
+
+  </main>
+</div>
+
+<div class="toast" id="toast"></div>
+
+<script src="../js/auth.js"></script>
+<script src="../js/admin/announcements.js"></script>
+</body>
+</html>

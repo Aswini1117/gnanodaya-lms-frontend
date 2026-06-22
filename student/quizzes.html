@@ -1,0 +1,140 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Quizzes — LMS</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com"/>
+  <link href="https://fonts.googleapis.com/css2?family=Sora:wght@400;600;700&family=DM+Sans:wght@400;500;600&display=swap" rel="stylesheet"/>
+  <link rel="stylesheet" href="../css/variables.css"/>
+  <link rel="stylesheet" href="../css/globals.css"/>
+  <link rel="stylesheet" href="../css/shared.css"/>
+  <style>
+    .quiz-card {
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: var(--radius-lg);
+      padding: 20px;
+      box-shadow: var(--shadow);
+      transition: var(--transition);
+    }
+    .quiz-card:hover { transform: translateY(-2px); box-shadow: var(--shadow-md); }
+    .quiz-meta { display: flex; gap: 16px; font-size: 12px; color: var(--text-muted); margin: 10px 0; }
+    .quiz-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(280px,1fr)); gap: 16px; }
+    .question-block {
+      background: var(--bg);
+      border: 1px solid var(--border);
+      border-radius: var(--radius);
+      padding: 16px;
+      margin-bottom: 14px;
+    }
+    .option-label {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      padding: 10px 14px;
+      border: 1.5px solid var(--border);
+      border-radius: var(--radius-sm);
+      margin-top: 8px;
+      cursor: pointer;
+      font-size: 13px;
+      transition: var(--transition);
+    }
+    .option-label:hover { border-color: var(--primary); background: var(--primary-light); }
+    .option-label input { accent-color: var(--primary); }
+    .option-label.correct { border-color: var(--success); background: #d1fae5; }
+    .option-label.wrong   { border-color: var(--error);   background: #fee2e2; }
+  </style>
+</head>
+<body>
+<div class="app-layout">
+  <header class="app-navbar">
+    <div class="navbar-left">
+      <div class="hamburger" onclick="toggleSidebar()"><span></span><span></span><span></span></div>
+      <span class="navbar-title">Quizzes</span>
+    </div>
+    <div class="navbar-right">
+      <div class="navbar-icon-btn">🔔<div class="notif-dot"></div></div>
+      <div class="navbar-user">
+        <div class="navbar-avatar" id="nav-avatar" style="background:var(--student)">S</div>
+        <span id="nav-name">Student</span>
+      </div>
+    </div>
+  </header>
+  <aside class="app-sidebar" id="sidebar"></aside>
+  <div class="sidebar-overlay" id="sidebar-overlay" onclick="toggleSidebar()"></div>
+  <main class="app-main">
+    <div class="main-content">
+
+      <!-- Quiz List -->
+      <div id="quiz-list-view">
+        <div class="page-header">
+          <div>
+            <div class="page-title">Quizzes</div>
+            <div class="page-subtitle">Take quizzes and view your results</div>
+          </div>
+        </div>
+        <div class="quiz-grid" id="quizzes-grid">
+          <div class="skeleton-row"><div class="skeleton"></div></div>
+        </div>
+      </div>
+
+      <!-- Quiz Take View -->
+      <div id="quiz-take-view" style="display:none">
+        <div class="page-header">
+          <div>
+            <div class="page-title" id="quiz-title">Quiz</div>
+            <div class="page-subtitle" id="quiz-timer"></div>
+          </div>
+          <div class="page-actions">
+            <button class="btn" onclick="exitQuiz()">← Exit</button>
+            <button class="btn btn-primary" onclick="submitQuiz()">Submit Quiz</button>
+          </div>
+        </div>
+        <div id="questions-container"></div>
+      </div>
+
+      <!-- Quiz Result View -->
+      <div id="quiz-result-view" style="display:none">
+        <div class="page-header">
+          <div><div class="page-title">Quiz Result</div></div>
+          <div class="page-actions">
+            <button class="btn btn-primary" onclick="exitQuiz()">← Back to Quizzes</button>
+          </div>
+        </div>
+        <div class="panel" style="max-width:480px;margin:0 auto">
+          <div class="panel-body" style="text-align:center;padding:36px">
+            <div style="font-size:64px;margin-bottom:16px" id="result-icon">🏆</div>
+            <div style="font-family:'Sora',sans-serif;font-size:28px;font-weight:700;margin-bottom:8px" id="result-score"></div>
+            <div style="color:var(--text-secondary);margin-bottom:24px" id="result-msg"></div>
+            <div style="display:flex;gap:16px;justify-content:center">
+              <div style="text-align:center">
+                <div style="font-size:22px;font-weight:700;color:var(--success)" id="result-correct">0</div>
+                <div style="font-size:12px;color:var(--text-muted)">Correct</div>
+              </div>
+              <div style="text-align:center">
+                <div style="font-size:22px;font-weight:700;color:var(--error)" id="result-wrong">0</div>
+                <div style="font-size:12px;color:var(--text-muted)">Wrong</div>
+              </div>
+              <div style="text-align:center">
+                <div style="font-size:22px;font-weight:700;color:var(--text-muted)" id="result-total">0</div>
+                <div style="font-size:12px;color:var(--text-muted)">Total</div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+    </div>
+  </main>
+</div>
+
+<script src="../js/api.js"></script>
+<script src="../js/auth.js"></script>
+<script src="../js/role-guard.js"></script>
+<script src="../js/utils.js"></script>
+<script src="../js/toast.js"></script>
+<script src="../js/sidebar.js"></script>
+<script src="../js/student/quizzes.js"></script>
+</body>
+</html>

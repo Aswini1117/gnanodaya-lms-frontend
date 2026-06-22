@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Reports — LMS</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com"/>
+  <link href="https://fonts.googleapis.com/css2?family=Sora:wght@400;600;700&family=DM+Sans:wght@400;500;600&display=swap" rel="stylesheet"/>
+  <link rel="stylesheet" href="../css/variables.css"/>
+  <link rel="stylesheet" href="../css/globals.css"/>
+  <link rel="stylesheet" href="../css/shared.css"/>
+</head>
+<body>
+<div class="app-layout">
+  <header class="app-navbar">
+    <div class="navbar-left">
+      <div class="hamburger" onclick="toggleSidebar()"><span></span><span></span><span></span></div>
+      <span class="navbar-title">Reports</span>
+    </div>
+    <div class="navbar-right">
+      <div class="navbar-icon-btn">🔔<div class="notif-dot"></div></div>
+      <div class="navbar-user">
+        <div class="navbar-avatar" id="nav-avatar">A</div>
+        <span id="nav-name">Admin</span>
+      </div>
+    </div>
+  </header>
+  <aside class="app-sidebar" id="sidebar"></aside>
+  <div class="sidebar-overlay" id="sidebar-overlay" onclick="toggleSidebar()"></div>
+  <main class="app-main">
+    <div class="main-content">
+      <div class="page-header">
+        <div>
+          <div class="page-title">Reports</div>
+          <div class="page-subtitle">Generate and download reports</div>
+        </div>
+      </div>
+
+      <div class="content-grid">
+        <div class="panel">
+          <div class="panel-head"><span class="panel-title">Student Report</span></div>
+          <div class="panel-body">
+            <p style="font-size:13px;color:var(--text-secondary);margin-bottom:16px">Download complete list of all students with enrollment details.</p>
+            <button class="btn btn-primary btn-full" onclick="downloadReport('students')">📥 Download Student Report</button>
+          </div>
+        </div>
+        <div class="panel">
+          <div class="panel-head"><span class="panel-title">Course Report</span></div>
+          <div class="panel-body">
+            <p style="font-size:13px;color:var(--text-secondary);margin-bottom:16px">Download all course data with completion rates and enrollments.</p>
+            <button class="btn btn-primary btn-full" onclick="downloadReport('courses')">📥 Download Course Report</button>
+          </div>
+        </div>
+        <div class="panel">
+          <div class="panel-head"><span class="panel-title">Fee Report</span></div>
+          <div class="panel-body">
+            <p style="font-size:13px;color:var(--text-secondary);margin-bottom:16px">Download fee collection summary with payment status.</p>
+            <button class="btn btn-primary btn-full" onclick="downloadReport('fees')">📥 Download Fee Report</button>
+          </div>
+        </div>
+        <div class="panel">
+          <div class="panel-head"><span class="panel-title">Attendance Report</span></div>
+          <div class="panel-body">
+            <p style="font-size:13px;color:var(--text-secondary);margin-bottom:16px">Download student attendance records for all courses.</p>
+            <button class="btn btn-primary btn-full" onclick="downloadReport('attendance')">📥 Download Attendance Report</button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </main>
+</div>
+
+<script src="../js/api.js"></script>
+<script src="../js/auth.js"></script>
+<script src="../js/role-guard.js"></script>
+<script src="../js/utils.js"></script>
+<script src="../js/toast.js"></script>
+<script src="../js/sidebar.js"></script>
+<script src="../js/admin/reports.js"></script>
+</body>
+</html>

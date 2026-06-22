@@ -1,0 +1,46 @@
+:root {
+  /* Primary */
+  --primary:        #2563eb;
+  --primary-dark:   #1d4ed8;
+  --primary-light:  #eff6ff;
+
+  /* Status */
+  --success:        #10b981;
+  --error:          #ef4444;
+  --warning:        #f59e0b;
+  --info:           #3b82f6;
+
+  /* Backgrounds */
+  --bg:             #f8fafc;
+  --surface:        #ffffff;
+  --border:         #e2e8f0;
+  --border-dark:    #cbd5e1;
+
+  /* Text */
+  --text-primary:   #0f172a;
+  --text-secondary: #475569;
+  --text-muted:     #94a3b8;
+
+  /* Role Colors */
+  --super-admin:    #7c3aed;
+  --admin:          #2563eb;
+  --instructor:     #059669;
+  --student:        #d97706;
+
+  /* Layout */
+  --sidebar-width:  240px;
+  --navbar-height:  60px;
+
+  /* Radius */
+  --radius:         10px;
+  --radius-lg:      16px;
+  --radius-sm:      6px;
+
+  /* Shadows */
+  --shadow:         0 1px 3px rgba(0,0,0,0.08);
+  --shadow-md:      0 4px 16px rgba(0,0,0,0.10);
+  --shadow-lg:      0 10px 40px rgba(0,0,0,0.14);
+
+  /* Transition */
+  --transition:     all 0.2s ease;
+}

@@ -1,0 +1,142 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Institutes — LMS</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com"/>
+  <link href="https://fonts.googleapis.com/css2?family=Sora:wght@400;600;700&family=DM+Sans:wght@400;500;600&display=swap" rel="stylesheet"/>
+  <link rel="stylesheet" href="../css/variables.css"/>
+  <link rel="stylesheet" href="../css/globals.css"/>
+  <link rel="stylesheet" href="../css/shared.css"/>
+</head>
+<body>
+<div class="app-layout">
+  <header class="app-navbar">
+    <div class="navbar-left">
+      <div class="hamburger" onclick="toggleSidebar()"><span></span><span></span><span></span></div>
+      <span class="navbar-title">Institutes</span>
+    </div>
+    <div class="navbar-right">
+      <div class="navbar-icon-btn">🔔<div class="notif-dot"></div></div>
+      <div class="navbar-user">
+        <div class="navbar-avatar" id="nav-avatar" style="background:var(--super-admin)">S</div>
+        <span id="nav-name">Super Admin</span>
+      </div>
+    </div>
+  </header>
+  <aside class="app-sidebar" id="sidebar"></aside>
+  <div class="sidebar-overlay" id="sidebar-overlay" onclick="toggleSidebar()"></div>
+  <main class="app-main">
+    <div class="main-content">
+      <div class="page-header">
+        <div>
+          <div class="page-title">Institutes</div>
+          <div class="page-subtitle">Manage all registered institutes</div>
+        </div>
+        <div class="page-actions">
+          <button class="btn btn-primary" onclick="openAddModal()">+ Add Institute</button>
+        </div>
+      </div>
+
+      <div class="panel" style="margin-bottom:20px">
+        <div class="panel-body" style="display:flex;gap:12px;flex-wrap:wrap">
+          <input type="text" class="form-input" id="search-input"
+            placeholder="🔍 Search institutes..."
+            style="max-width:300px" oninput="filterInstitutes()"/>
+          <select class="form-select" id="status-filter" style="max-width:180px" onchange="filterInstitutes()">
+            <option value="">All Status</option>
+            <option value="ACTIVE">Active</option>
+            <option value="TRIAL">Trial</option>
+            <option value="SUSPENDED">Suspended</option>
+            <option value="INACTIVE">Inactive</option>
+          </select>
+        </div>
+      </div>
+
+      <div class="panel">
+        <div class="panel-head">
+          <span class="panel-title">All Institutes</span>
+          <span class="badge badge-primary" id="institute-count">0</span>
+        </div>
+        <div class="table-wrap">
+          <table class="data-table">
+            <thead>
+              <tr>
+                <th>Institute</th>
+                <th>Admin</th>
+                <th>Phone</th>
+                <th>Plan</th>
+                <th>Users</th>
+                <th>Status</th>
+                <th>Actions</th>
+              </tr>
+            </thead>
+            <tbody id="institutes-table">
+              <tr><td colspan="7" style="text-align:center;padding:24px;color:var(--text-muted)">Loading...</td></tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </div>
+  </main>
+</div>
+
+<!-- Modal -->
+<div class="modal-overlay" id="institute-modal">
+  <div class="modal">
+    <button class="modal-close" onclick="closeModal()">✕</button>
+    <div class="modal-title" id="modal-title">Add Institute</div>
+    <input type="hidden" id="institute-id"/>
+    <div class="form-row">
+      <div class="form-group">
+        <label class="form-label">Institute Name <span style="color:var(--error)">*</span></label>
+        <input type="text" class="form-input" id="inst-name" placeholder="Institute name"/>
+      </div>
+      <div class="form-group">
+        <label class="form-label">Admin Name <span style="color:var(--error)">*</span></label>
+        <input type="text" class="form-input" id="inst-admin" placeholder="Admin name"/>
+      </div>
+      <div class="form-group">
+        <label class="form-label">Phone <span style="color:var(--error)">*</span></label>
+        <input type="tel" class="form-input" id="inst-phone" placeholder="Phone number" maxlength="10"/>
+      </div>
+      <div class="form-group">
+        <label class="form-label">Email</label>
+        <input type="email" class="form-input" id="inst-email" placeholder="Email address"/>
+      </div>
+      <div class="form-group">
+        <label class="form-label">Plan</label>
+        <select class="form-select" id="inst-plan">
+          <option value="TRIAL">Trial</option>
+          <option value="BASIC">Basic</option>
+          <option value="PRO">Pro</option>
+          <option value="ENTERPRISE">Enterprise</option>
+        </select>
+      </div>
+      <div class="form-group">
+        <label class="form-label">Status</label>
+        <select class="form-select" id="inst-status">
+          <option value="ACTIVE">Active</option>
+          <option value="TRIAL">Trial</option>
+          <option value="SUSPENDED">Suspended</option>
+          <option value="INACTIVE">Inactive</option>
+        </select>
+      </div>
+    </div>
+    <div class="modal-actions">
+      <button class="btn" onclick="closeModal()">Cancel</button>
+      <button class="btn btn-primary" onclick="saveInstitute()">Save</button>
+    </div>
+  </div>
+</div>
+
+<script src="../js/api.js"></script>
+<script src="../js/auth.js"></script>
+<script src="../js/role-guard.js"></script>
+<script src="../js/utils.js"></script>
+<script src="../js/toast.js"></script>
+<script src="../js/sidebar.js"></script>
+<script src="../js/super-admin/institutes.js"></script>
+</body>
+</html>

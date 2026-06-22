@@ -1,0 +1,160 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Announcements — Admin</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com"/>
+  <link href="https://fonts.googleapis.com/css2?family=Sora:wght@400;600;700&family=DM+Sans:wght@400;500;600&display=swap" rel="stylesheet"/>
+  <link rel="stylesheet" href="../css/variables.css"/>
+  <link rel="stylesheet" href="../css/globals.css"/>
+  <link rel="stylesheet" href="../css/shared.css"/>
+  <link rel="stylesheet" href="../css/announcements.css"/>
+</head>
+<body>
+
+<div class="app-layout">
+
+  <!-- NAVBAR — same as students.html -->
+  <header class="app-navbar">
+    <div class="navbar-left">
+      <div class="hamburger" onclick="toggleSidebar()"><span></span><span></span><span></span></div>
+      <span class="navbar-title">Announcements</span>
+    </div>
+    <div class="navbar-right">
+      <div class="navbar-icon-btn">🔔<div class="notif-dot"></div></div>
+      <div class="navbar-user">
+        <div class="navbar-avatar" id="nav-avatar">A</div>
+        <span id="nav-name">Admin</span>
+      </div>
+    </div>
+  </header>
+
+  <!-- SIDEBAR — built by sidebar.js, same as students.html -->
+  <aside class="app-sidebar" id="sidebar"></aside>
+  <div class="sidebar-overlay" id="sidebar-overlay" onclick="toggleSidebar()"></div>
+
+  <!-- MAIN -->
+  <main class="app-main">
+    <div class="main-content">
+
+      <div class="page-header">
+        <div>
+          <div class="page-title">Announcements</div>
+          <div class="page-subtitle">Create and manage announcements for students and instructors</div>
+        </div>
+      </div>
+
+      <div class="announce-layout">
+
+        <!-- CREATE FORM -->
+        <div class="announce-form-card">
+          <div class="card-head">
+            <i class="ti ti-plus" aria-hidden="true"></i>
+            <h3>New Announcement</h3>
+          </div>
+
+          <div id="form-alert-error"   class="form-alert error"></div>
+          <div id="form-alert-success" class="form-alert success"></div>
+
+          <div class="field-group">
+            <label class="field-label" for="ann-title">Title</label>
+            <div class="field-wrap" id="wrap-title">
+              <span class="field-icon"><i class="ti ti-text-size" aria-hidden="true"></i></span>
+              <input type="text" class="field-input" id="ann-title"
+                placeholder="Announcement title"
+                oninput="clearWrapErr('wrap-title')"/>
+            </div>
+            <span id="title-error" class="field-err"></span>
+          </div>
+
+          <div class="field-group">
+            <label class="field-label" for="ann-target">Send To</label>
+            <div class="field-wrap" id="wrap-target">
+              <span class="field-icon"><i class="ti ti-users" aria-hidden="true"></i></span>
+              <select class="field-input field-select" id="ann-target">
+                <option value="">Select audience</option>
+                <option value="ALL">Everyone</option>
+                <option value="STUDENTS">Students only</option>
+                <option value="INSTRUCTORS">Instructors only</option>
+                <option value="BATCH">Specific batch</option>
+              </select>
+            </div>
+            <span id="target-error" class="field-err"></span>
+          </div>
+
+          <div class="field-group" id="batch-field" style="display:none">
+            <label class="field-label" for="ann-batch">Select Batch</label>
+            <div class="field-wrap">
+              <span class="field-icon"><i class="ti ti-stack" aria-hidden="true"></i></span>
+              <select class="field-input field-select" id="ann-batch">
+                <option value="">Loading batches...</option>
+              </select>
+            </div>
+          </div>
+
+          <div class="field-group">
+            <label class="field-label" for="ann-content">Message</label>
+            <div class="textarea-wrap" id="wrap-content">
+              <textarea class="field-textarea" id="ann-content"
+                placeholder="Write your announcement here..."
+                rows="5"
+                oninput="clearWrapErr('wrap-content')"></textarea>
+            </div>
+            <span id="content-error" class="field-err"></span>
+          </div>
+
+          <button class="btn-primary" id="post-btn" onclick="postAnnouncement()">
+            <span id="post-text">Post Announcement</span>
+            <span id="post-spinner" class="spinner"></span>
+            <i class="ti ti-send" id="post-arrow" aria-hidden="true"></i>
+          </button>
+        </div>
+
+        <!-- ANNOUNCEMENTS LIST -->
+        <div class="announce-list-card">
+          <div class="card-head">
+            <i class="ti ti-speakerphone" aria-hidden="true"></i>
+            <h3>All Announcements</h3>
+            <span class="count-badge" id="ann-count">0</span>
+          </div>
+
+          <div class="filter-row">
+            <input type="text" class="search-input" id="search-input"
+              placeholder="Search announcements..."
+              oninput="filterAnnouncements()"/>
+            <select class="filter-select" id="filter-target" onchange="filterAnnouncements()">
+              <option value="">All audiences</option>
+              <option value="ALL">Everyone</option>
+              <option value="STUDENTS">Students</option>
+              <option value="INSTRUCTORS">Instructors</option>
+              <option value="BATCH">Batch</option>
+            </select>
+          </div>
+
+          <div id="announcements-list">
+            <div class="empty-state">
+              <i class="ti ti-speakerphone" aria-hidden="true"></i>
+              <p>Loading announcements...</p>
+            </div>
+          </div>
+        </div>
+
+      </div><!-- /.announce-layout -->
+
+    </div><!-- /.main-content -->
+  </main>
+
+</div><!-- /.app-layout -->
+
+<div class="toast" id="toast"></div>
+
+<script src="../js/api.js"></script>
+<script src="../js/auth.js"></script>
+<script src="../js/role-guard.js"></script>
+<script src="../js/utils.js"></script>
+<script src="../js/toast.js"></script>
+<script src="../js/sidebar.js"></script>
+<script src="../js/admin/announcements.js"></script>
+</body>
+</html>

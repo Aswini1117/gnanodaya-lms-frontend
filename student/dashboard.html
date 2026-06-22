@@ -1,0 +1,148 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Student Dashboard — LMS</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com"/>
+  <link href="https://fonts.googleapis.com/css2?family=Sora:wght@400;600;700&family=DM+Sans:wght@400;500;600&display=swap" rel="stylesheet"/>
+  <link rel="stylesheet" href="../css/variables.css"/>
+  <link rel="stylesheet" href="../css/globals.css"/>
+  <link rel="stylesheet" href="../css/shared.css"/>
+</head>
+<body>
+<div class="app-layout">
+
+  <header class="app-navbar">
+    <div class="navbar-left">
+      <div class="hamburger" onclick="toggleSidebar()">
+        <span></span><span></span><span></span>
+      </div>
+      <span class="navbar-title">My Learning</span>
+    </div>
+    <div class="navbar-right">
+      <div class="navbar-icon-btn">🔔<div class="notif-dot"></div></div>
+      <div class="navbar-user">
+        <div class="navbar-avatar" id="nav-avatar" style="background:var(--student)">S</div>
+        <span id="nav-name">Student</span>
+      </div>
+    </div>
+  </header>
+
+  <aside class="app-sidebar" id="sidebar"></aside>
+  <div class="sidebar-overlay" id="sidebar-overlay" onclick="toggleSidebar()"></div>
+
+  <main class="app-main">
+    <div class="main-content">
+
+      <!-- Welcome Banner -->
+      <div style="background:linear-gradient(135deg,#1d4ed8,#2563eb);border-radius:var(--radius-lg);padding:24px 28px;margin-bottom:28px;color:#fff;display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:16px">
+        <div>
+          <div style="font-family:'Sora',sans-serif;font-size:20px;font-weight:700;margin-bottom:4px">
+            Welcome back, <span id="welcome-name">Student</span>! 👋
+          </div>
+          <div style="opacity:0.85;font-size:14px" id="streak-count">Keep learning every day</div>
+        </div>
+        <a href="/student/course-browser.html" class="btn" style="background:rgba(255,255,255,0.15);color:#fff;border-color:rgba(255,255,255,0.3)">
+          🔍 Browse Courses
+        </a>
+      </div>
+
+      <!-- Stats -->
+      <div class="stats-grid">
+        <div class="stat-card yellow">
+          <div class="stat-icon">📚</div>
+          <div class="stat-label">Enrolled Courses</div>
+          <div class="stat-value" id="stat-enrolled">—</div>
+          <div class="stat-trend">Active enrollments</div>
+        </div>
+        <div class="stat-card green">
+          <div class="stat-icon">⏱</div>
+          <div class="stat-label">Hours Learned</div>
+          <div class="stat-value" id="stat-hours">—</div>
+          <div class="stat-trend">Total study time</div>
+        </div>
+        <div class="stat-card purple">
+          <div class="stat-icon">🏆</div>
+          <div class="stat-label">Certificates</div>
+          <div class="stat-value" id="stat-certs">—</div>
+          <div class="stat-trend">Earned so far</div>
+        </div>
+        <div class="stat-card red">
+          <div class="stat-icon">📝</div>
+          <div class="stat-label">Pending Tasks</div>
+          <div class="stat-value" id="stat-assignments">—</div>
+          <div class="stat-trend">Due this week</div>
+        </div>
+      </div>
+
+      <div class="content-grid">
+
+        <!-- Continue Learning -->
+        <div class="panel" style="grid-column:span 2">
+          <div class="panel-head">
+            <span class="panel-title">Continue Learning</span>
+            <a href="/student/my-courses.html" class="panel-link">All courses →</a>
+          </div>
+          <div class="panel-body" id="enrolled-courses">
+            <div class="skeleton-row"><div class="skeleton"></div></div>
+            <div class="skeleton-row"><div class="skeleton"></div></div>
+            <div class="skeleton-row"><div class="skeleton"></div></div>
+          </div>
+        </div>
+
+      </div>
+
+      <div class="content-grid">
+
+        <!-- Deadlines -->
+        <div class="panel">
+          <div class="panel-head">
+            <span class="panel-title">Upcoming Deadlines</span>
+            <a href="/student/assignments.html" class="panel-link">All tasks →</a>
+          </div>
+          <div class="panel-body" id="deadlines-list">
+            <div class="skeleton-row"><div class="skeleton"></div></div>
+            <div class="skeleton-row"><div class="skeleton"></div></div>
+          </div>
+        </div>
+
+        <!-- Announcements -->
+        <div class="panel">
+          <div class="panel-head">
+            <span class="panel-title">Announcements</span>
+            <a href="/student/announcements.html" class="panel-link">View all →</a>
+          </div>
+          <div class="panel-body" id="announcements-list">
+            <div class="skeleton-row"><div class="skeleton"></div></div>
+            <div class="skeleton-row"><div class="skeleton"></div></div>
+          </div>
+        </div>
+
+        <!-- Quick Links -->
+        <div class="panel">
+          <div class="panel-head"><span class="panel-title">Quick Links</span></div>
+          <div class="panel-body" style="display:flex;flex-direction:column;gap:10px">
+            <a href="/student/quizzes.html"      class="btn" style="justify-content:flex-start">🧪 Take a Quiz</a>
+            <a href="/student/progress.html"     class="btn" style="justify-content:flex-start">📊 My Progress</a>
+            <a href="/student/certificates.html" class="btn" style="justify-content:flex-start">🏆 My Certificates</a>
+            <a href="/student/schedule.html"     class="btn" style="justify-content:flex-start">🗓 My Schedule</a>
+            <a href="/student/fee-payment.html"  class="btn" style="justify-content:flex-start">💳 Fee Payment</a>
+            <a href="/student/profile.html"      class="btn" style="justify-content:flex-start">👤 Edit Profile</a>
+          </div>
+        </div>
+
+      </div>
+    </div>
+  </main>
+</div>
+
+<script src="../js/api.js"></script>
+<script src="../js/auth.js"></script>
+<script src="../js/role-guard.js"></script>
+<script src="../js/utils.js"></script>
+<script src="../js/toast.js"></script>
+<script src="../js/sidebar.js"></script>
+<script src="../js/student/dashboard.js"></script>
+</body>
+</html>

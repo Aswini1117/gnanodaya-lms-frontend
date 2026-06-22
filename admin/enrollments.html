@@ -1,0 +1,109 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Enrollments — LMS</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com"/>
+  <link href="https://fonts.googleapis.com/css2?family=Sora:wght@400;600;700&family=DM+Sans:wght@400;500;600&display=swap" rel="stylesheet"/>
+  <link rel="stylesheet" href="../css/variables.css"/>
+  <link rel="stylesheet" href="../css/globals.css"/>
+  <link rel="stylesheet" href="../css/shared.css"/>
+</head>
+<body>
+<div class="app-layout">
+  <header class="app-navbar">
+    <div class="navbar-left">
+      <div class="hamburger" onclick="toggleSidebar()"><span></span><span></span><span></span></div>
+      <span class="navbar-title">Enrollments</span>
+    </div>
+    <div class="navbar-right">
+      <div class="navbar-icon-btn">🔔<div class="notif-dot"></div></div>
+      <div class="navbar-user">
+        <div class="navbar-avatar" id="nav-avatar">A</div>
+        <span id="nav-name">Admin</span>
+      </div>
+    </div>
+  </header>
+  <aside class="app-sidebar" id="sidebar"></aside>
+  <div class="sidebar-overlay" id="sidebar-overlay" onclick="toggleSidebar()"></div>
+  <main class="app-main">
+    <div class="main-content">
+      <div class="page-header">
+        <div>
+          <div class="page-title">Enrollments</div>
+          <div class="page-subtitle">Manage student course enrollments</div>
+        </div>
+        <div class="page-actions">
+          <button class="btn btn-primary" onclick="openAddModal()">+ Enroll Student</button>
+        </div>
+      </div>
+
+      <div class="panel" style="margin-bottom:20px">
+        <div class="panel-body" style="display:flex;gap:12px;flex-wrap:wrap">
+          <input type="text" class="form-input" id="search-input" placeholder="🔍 Search..." style="max-width:300px" oninput="filterEnrollments()"/>
+          <select class="form-select" id="status-filter" style="max-width:180px" onchange="filterEnrollments()">
+            <option value="">All Status</option>
+            <option value="ENROLLED">Enrolled</option>
+            <option value="COMPLETED">Completed</option>
+            <option value="DROPPED">Dropped</option>
+          </select>
+        </div>
+      </div>
+
+      <div class="panel">
+        <div class="panel-head">
+          <span class="panel-title">All Enrollments</span>
+          <span class="badge badge-primary" id="enrollment-count">0</span>
+        </div>
+        <div class="table-wrap">
+          <table class="data-table">
+            <thead>
+              <tr>
+                <th>Student</th>
+                <th>Course</th>
+                <th>Enrolled On</th>
+                <th>Progress</th>
+                <th>Status</th>
+                <th>Actions</th>
+              </tr>
+            </thead>
+            <tbody id="enrollments-table">
+              <tr><td colspan="6" style="text-align:center;padding:24px;color:var(--text-muted)">Loading...</td></tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </div>
+  </main>
+</div>
+
+<!-- Modal -->
+<div class="modal-overlay" id="enrollment-modal">
+  <div class="modal">
+    <button class="modal-close" onclick="closeModal()">✕</button>
+    <div class="modal-title">Enroll Student</div>
+    <div class="form-group">
+      <label class="form-label">Student ID <span style="color:var(--error)">*</span></label>
+      <input type="text" class="form-input" id="enroll-student" placeholder="Enter student ID"/>
+    </div>
+    <div class="form-group">
+      <label class="form-label">Course ID <span style="color:var(--error)">*</span></label>
+      <input type="text" class="form-input" id="enroll-course" placeholder="Enter course ID"/>
+    </div>
+    <div class="modal-actions">
+      <button class="btn" onclick="closeModal()">Cancel</button>
+      <button class="btn btn-primary" onclick="saveEnrollment()">Enroll</button>
+    </div>
+  </div>
+</div>
+
+<script src="../js/api.js"></script>
+<script src="../js/auth.js"></script>
+<script src="../js/role-guard.js"></script>
+<script src="../js/utils.js"></script>
+<script src="../js/toast.js"></script>
+<script src="../js/sidebar.js"></script>
+<script src="../js/admin/enrollments.js"></script>
+</body>
+</html>

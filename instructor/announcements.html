@@ -1,0 +1,128 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Announcements — Instructor</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com"/>
+  <link href="https://fonts.googleapis.com/css2?family=Sora:wght@400;600;700&family=DM+Sans:wght@400;500;600&display=swap" rel="stylesheet"/>
+  <link rel="stylesheet" href="../css/variables.css"/>
+  <link rel="stylesheet" href="../css/globals.css"/>
+  <link rel="stylesheet" href="../css/shared.css"/>
+</head>
+<body>
+<div class="app-layout">
+
+  <header class="app-navbar">
+    <div class="navbar-left">
+      <div class="hamburger" onclick="toggleSidebar()"><span></span><span></span><span></span></div>
+      <span class="navbar-title">Announcements</span>
+    </div>
+    <div class="navbar-right">
+      <div class="navbar-icon-btn">🔔<div class="notif-dot"></div></div>
+      <div class="navbar-user">
+        <div class="navbar-avatar" id="nav-avatar">A</div>
+        <span id="nav-name">Instructor</span>
+      </div>
+    </div>
+  </header>
+
+  <aside class="app-sidebar" id="sidebar"></aside>
+  <div class="sidebar-overlay" id="sidebar-overlay" onclick="toggleSidebar()"></div>
+
+  <main class="app-main">
+    <div class="main-content">
+
+      <div class="page-header">
+        <div>
+          <div class="page-title">Announcements</div>
+          <div class="page-subtitle">Create and manage announcements for your students</div>
+        </div>
+      </div>
+
+      <div style="display:grid;grid-template-columns:380px 1fr;gap:24px;align-items:flex-start">
+
+        <!-- CREATE FORM -->
+        <div class="panel">
+          <div class="panel-head">
+            <span class="panel-title">+ New Announcement</span>
+          </div>
+          <div class="panel-body">
+            <div id="form-alert-error"   style="display:none;padding:10px 14px;border-radius:8px;font-size:13px;margin-bottom:14px;background:#fef2f2;border:1px solid #fecaca;color:#b91c1c"></div>
+            <div id="form-alert-success" style="display:none;padding:10px 14px;border-radius:8px;font-size:13px;margin-bottom:14px;background:#f0fdf4;border:1px solid #bbf7d0;color:#15803d"></div>
+
+            <div class="form-group">
+              <label class="form-label">Title <span style="color:var(--error)">*</span></label>
+              <input type="text" class="form-input" id="ann-title" placeholder="Announcement title"/>
+            </div>
+
+            <div class="form-group">
+              <label class="form-label">Send To <span style="color:var(--error)">*</span></label>
+              <select class="form-select" id="ann-target" onchange="toggleBatchField()">
+                <option value="">Select audience</option>
+                <option value="ALL">Everyone</option>
+                <option value="STUDENTS">Students only</option>
+                <option value="INSTRUCTORS">Instructors only</option>
+                <option value="BATCH">Specific batch</option>
+              </select>
+            </div>
+
+            <div class="form-group" id="batch-field" style="display:none">
+              <label class="form-label">Select Batch</label>
+              <select class="form-select" id="ann-batch">
+                <option value="">Loading batches...</option>
+              </select>
+            </div>
+
+            <div class="form-group">
+              <label class="form-label">Message <span style="color:var(--error)">*</span></label>
+              <textarea class="form-textarea" id="ann-content"
+                placeholder="Write your announcement here..."
+                rows="5" style="width:100%;padding:10px 14px;border:1.5px solid var(--border);border-radius:8px;font-size:14px;font-family:inherit;resize:vertical;outline:none;background:var(--bg)"></textarea>
+            </div>
+
+            <button class="btn btn-primary btn-full" id="post-btn" onclick="postAnnouncement()">
+              <span id="post-text">📢 Post Announcement</span>
+            </button>
+          </div>
+        </div>
+
+        <!-- ANNOUNCEMENTS LIST -->
+        <div class="panel">
+          <div class="panel-head">
+            <span class="panel-title">All Announcements</span>
+            <span class="badge badge-primary" id="ann-count">0</span>
+          </div>
+          <div class="panel-body" style="padding-top:0">
+            <div style="display:flex;gap:12px;margin-bottom:16px;padding-top:16px">
+              <input type="text" class="form-input" id="search-input"
+                placeholder="Search announcements..." oninput="filterAnnouncements()"/>
+              <select class="form-select" style="max-width:160px" id="filter-target" onchange="filterAnnouncements()">
+                <option value="">All audiences</option>
+                <option value="ALL">Everyone</option>
+                <option value="STUDENTS">Students</option>
+                <option value="INSTRUCTORS">Instructors</option>
+                <option value="BATCH">Batch</option>
+              </select>
+            </div>
+            <div id="announcements-list">
+              <div class="empty-state">Loading...</div>
+            </div>
+          </div>
+        </div>
+
+      </div>
+
+    </div>
+  </main>
+</div>
+
+<script src="../js/api.js"></script>
+<script src="../js/auth.js"></script>
+<script src="../js/role-guard.js"></script>
+<script src="../js/utils.js"></script>
+<script src="../js/toast.js"></script>
+<script src="../js/sidebar.js"></script>
+<script src="../js/instructor/announcements.js"></script>
+</body>
+</html>
